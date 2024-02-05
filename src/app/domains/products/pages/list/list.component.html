@@ -1,0 +1,10 @@
+<div class="grid grid-cols-3 gap-8">
+    <app-product [title]="'Producto 1'" [price]="12" [img]="'https://picsum.photos/640/640?r=2'"
+        (addToCart)="fromChild($event)"></app-product>
+    <app-product [title]="'Producto 2'" [price]="13" [img]="'https://picsum.photos/640/640?r=22'"
+        (addToCart)="fromChild($event)"></app-product>
+    <app-product [title]="'Producto 3'" [price]="14" [img]="'https://picsum.photos/640/640?r=222'"
+        (addToCart)="fromChild($event)"></app-product>
+    <app-product [title]="'Producto 4'" [price]="15" [img]="'https://picsum.photos/640/640?r=223'"
+        (addToCart)="fromChild($event)"></app-product>
+</div>

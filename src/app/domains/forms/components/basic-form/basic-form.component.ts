@@ -1,6 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-basic-form',
@@ -10,36 +15,85 @@ import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
   styleUrl: './basic-form.component.css',
 })
 export class BasicFormComponent {
-  nameField = new FormControl('', [
-    Validators.required,
-    Validators.maxLength(10),
-  ]);
-  emailField = new FormControl('');
-  phoneField = new FormControl('');
-  colorField = new FormControl('');
-  dateField = new FormControl('');
-  numberField = new FormControl(12);
-  categoryField = new FormControl('category-1');
-  tagField = new FormControl('');
-  agreeField = new FormControl(false);
-  genderField = new FormControl('');
-  zoneField = new FormControl('');
+  form: FormGroup;
+  constructor(private formBuilder: FormBuilder) {
+    this.form = this.buildForm();
+  }
 
   ngOnInit() {
-    this.nameField.valueChanges.subscribe((value) => {
+    this.nameField?.valueChanges.subscribe((value) => {
       console.log(value);
     });
   }
 
   getNameValue() {
-    console.log(this.nameField.value);
+    console.log(this.nameField?.value);
   }
 
-  get isNameFieldValid(){
-    return this.nameField.touched && this.nameField.valid
+  save(event: Event) {
+    if (this.form.valid) {
+      console.log(this.form.value);
+    } else {
+      this.form.markAllAsTouched();
+    }
   }
 
-  get isNameFieldInvalid(){
-    return this.nameField.touched && this.nameField.invalid
+  private buildForm(): FormGroup {
+    return this.formBuilder.group({
+      name: ['', [Validators.required, Validators.maxLength(10),Validators.pattern(/^[a-zA-Z ]+$/)]],
+      email: ['', [Validators.required, Validators.email]],
+      phone: ['', Validators.required],
+      color: [''],
+      date: [''],
+      number: [
+        12,
+        [Validators.required, Validators.min(18), Validators.max(100)],
+      ],
+      category: ['category-1'],
+      tag: [''],
+      agree: [false,[Validators.requiredTrue]],
+      gender: [''],
+      zone: [''],
+    });
+  }
+
+  get nameField() {
+    return this.form.get('name');
+  }
+  get emailField() {
+    return this.form.get('email');
+  }
+  get phoneField() {
+    return this.form.get('phone');
+  }
+  get colorField() {
+    return this.form.get('color');
+  }
+  get dateField() {
+    return this.form.get('date');
+  }
+  get numberField() {
+    return this.form.get('number');
+  }
+  get categoryField() {
+    return this.form.get('category');
+  }
+  get tagField() {
+    return this.form.get('tag');
+  }
+  get agreeField() {
+    return this.form.get('agree');
+  }
+  get genderField() {
+    return this.form.get('gender');
+  }
+  get zoneField() {
+    return this.form.get('zone');
+  }
+  get isNameFieldValid() {
+    return this.nameField?.touched && this.nameField.valid;
+  }
+  get isNameFieldInvalid() {
+    return this.nameField?.touched && this.nameField.invalid;
   }
 }

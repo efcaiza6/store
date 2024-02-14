@@ -2,15 +2,23 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import {
   FormBuilder,
+  FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-basic-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+  ],
   templateUrl: './basic-form.component.html',
   styleUrl: './basic-form.component.css',
 })
@@ -40,7 +48,24 @@ export class BasicFormComponent {
 
   private buildForm(): FormGroup {
     return this.formBuilder.group({
-      name: ['', [Validators.required, Validators.maxLength(10),Validators.pattern(/^[a-zA-Z ]+$/)]],
+      fullName: this.formBuilder.group({
+        name: [
+          '',
+          [
+            Validators.required,
+            Validators.maxLength(10),
+            Validators.pattern(/^[a-zA-Z ]+$/),
+          ],
+        ],
+        lastName: [
+          '',
+          [
+            Validators.required,
+            Validators.maxLength(10),
+            Validators.pattern(/^[a-zA-Z ]+$/),
+          ],
+        ],
+      }),
       email: ['', [Validators.required, Validators.email]],
       phone: ['', Validators.required],
       color: [''],
@@ -51,14 +76,17 @@ export class BasicFormComponent {
       ],
       category: ['category-1'],
       tag: [''],
-      agree: [false,[Validators.requiredTrue]],
+      agree: [false, [Validators.requiredTrue]],
       gender: [''],
       zone: [''],
     });
   }
 
   get nameField() {
-    return this.form.get('name');
+    return this.form.get('fullName')?.get('name');
+  }
+  get lastNameField() {
+    return this.form.get('fullName')?.get('lastName');
   }
   get emailField() {
     return this.form.get('email');
@@ -95,5 +123,15 @@ export class BasicFormComponent {
   }
   get isNameFieldInvalid() {
     return this.nameField?.touched && this.nameField.invalid;
+  }
+
+  email2 = new FormControl('', [Validators.required, Validators.email]);
+
+  getErrorMessage() {
+    if (this.email2.hasError('required')) {
+      return 'You must enter a value';
+    }
+
+    return this.email2.hasError('email') ? 'Not a valid email' : '';
   }
 }

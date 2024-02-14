@@ -3,6 +3,9 @@ import { NotFoundComponent } from '@info/pages/not-found/not-found.component';
 import { LayoutComponent } from '@shared/components/layout/layout.component';
 import { ProductDetailComponent } from '@products/pages/product-detail/product-detail.component';
 import { BasicFormComponent } from './domains/forms/components/basic-form/basic-form.component';
+import { RegisterComponent } from './domains/auth/components/register/register.component';
+import { CategoryComponent } from './domains/categories/components/category/category.component';
+import { CategoryFormComponent } from './domains/categories/pages/category-form/category-form.component';
 
 export const routes: Routes = [
   {
@@ -26,6 +29,14 @@ export const routes: Routes = [
         component: BasicFormComponent,
       },
     ],
+  },
+  {
+    path: 'auth/register',
+    component: RegisterComponent,
+  },
+  {
+    path: 'category',
+    component: CategoryFormComponent,
   },
   {
     path: '**',

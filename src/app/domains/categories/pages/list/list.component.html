@@ -1,1 +1,39 @@
-<p>list works!</p>
+<table class="w-full border border-gray-300 divide-y divide-gray-300">
+  <thead>
+    <tr>
+      <th class="w-1/4 p-2">Song</th>
+      <th class="w-1/4 p-2">Artist</th>
+      <th class="w-1/4 p-2">Year</th>
+      <th class="w-1/4 p-2">Year</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (category of categories(); track $index) {
+    <tr>
+      <th class="p-2">{{ category.id }}</th>
+      <th class="p-2">
+        <div class="flex items-center justify-center">
+        <img
+          [src]="category.image"
+          [alt]="category.name"
+          class="h-full w-1/2 object-cover object-center group-hover:opacity-75"
+        />
+    </div>
+      </th>
+      <th class="p-2">{{ category.name }}</th>
+      <th class="p-2 flex flex-col justify-center items-center gap-1">
+        <button
+          class="text-black bg-blue-400 font-medium rounded-lg text-sm px-5 py-2.5 w-1/2"
+        >
+          Editar
+        </button>
+        <button
+          class="text-black bg-red-400 font-medium rounded-lg text-sm px-5 py-2.5 w-1/2"
+        >
+          Eliminar
+        </button>
+      </th>
+    </tr>
+    }
+  </tbody>
+</table>

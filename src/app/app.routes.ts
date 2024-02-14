@@ -6,6 +6,7 @@ import { BasicFormComponent } from './domains/forms/components/basic-form/basic-
 import { RegisterComponent } from './domains/auth/components/register/register.component';
 import { CategoryComponent } from './domains/categories/components/category/category.component';
 import { CategoryFormComponent } from './domains/categories/pages/category-form/category-form.component';
+import { ListComponent } from './domains/categories/pages/list/list.component';
 
 export const routes: Routes = [
   {
@@ -35,8 +36,12 @@ export const routes: Routes = [
     component: RegisterComponent,
   },
   {
-    path: 'category',
+    path: 'category-form',
     component: CategoryFormComponent,
+  },
+  {
+    path: 'category-list',
+    component: ListComponent
   },
   {
     path: '**',

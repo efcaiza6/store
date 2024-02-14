@@ -15,4 +15,18 @@ export class CategoryService {
       'https://api.escuelajs.co/api/v1/categories'
     );
   }
+
+  createCategory(data: Partial<Category>) {
+    return this.http.post<Category>(
+      'https://api.escuelajs.co/api/v1/categories/',
+      data
+    );
+  }
+
+  updateCategory(id: number, data: Partial<Category>) {
+    return this.http.put<Category>(
+      'https://api.escuelajs.co/api/v1/categories/' + id,
+      data
+    );
+  }
 }
